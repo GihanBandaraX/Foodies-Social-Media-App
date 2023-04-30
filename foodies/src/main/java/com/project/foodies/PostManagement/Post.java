@@ -15,9 +15,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String restaurantName;
+    private String caption;
 
-    private String experience;
+    private String expression;
 
     @Lob
     @Column(name="photo", nullable=false, columnDefinition="mediumblob")
@@ -31,20 +31,20 @@ public class Post {
         this.id = id;
     }
 
-    public String getRestaurantName() {
-        return restaurantName;
+    public String getCaption() {
+        return caption;
     }
 
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
-    public String getExperience() {
-        return experience;
+    public String getExpression() {
+        return expression;
     }
 
-    public void setExperience(String experience) {
-        this.experience = experience;
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 
     public byte[] getPhoto() {

@@ -22,13 +22,13 @@ public class PostController {
     private PostRepository postRepository;
 
     @PostMapping(path = "/addpost")  
-    public @ResponseBody String addNewPost(@RequestParam String restaurantName, @RequestParam String experience, @RequestParam("photo") MultipartFile photo) throws IOException {
+    public @ResponseBody String addNewPost(@RequestParam String caption, @RequestParam String expression, @RequestParam("photo") MultipartFile photo) throws IOException {
        
        
        
         Post n = new Post();
-        n.setRestaurantName(restaurantName);
-        n.setExperience(experience);
+        n.setCaption(caption);
+        n.setExpression(expression);
         n.setPhoto(photo.getBytes());
         postRepository.save(n);
         return "Post Saved";
@@ -42,12 +42,12 @@ public class PostController {
 
     
     @PutMapping(path = "/updatepost/{id}")
-    public @ResponseBody String updatePost(@PathVariable Integer id, @RequestParam String restaurantName, @RequestParam String experience, @RequestParam("photo") MultipartFile photo) throws IOException {
+    public @ResponseBody String updatePost(@PathVariable Integer id, @RequestParam String caption, @RequestParam String expression, @RequestParam("photo") MultipartFile photo) throws IOException {
         Optional<Post> optionalPost = postRepository.findById(id);
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-            post.setRestaurantName(restaurantName);
-            post.setExperience(experience);
+            post.setCaption(caption);
+            post.setExpression(expression);
             post.setPhoto(photo.getBytes());
             postRepository.save(post);
             return "Updated";
