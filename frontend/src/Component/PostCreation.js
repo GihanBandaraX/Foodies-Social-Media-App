@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './PostStyle/PostCreation.css';
+
 
 const AddPostForm = () => {
   const [caption, setCaption] = useState('');
   const [expression, setExpression] = useState('');
   const [photo, setPhoto] = useState(null);
+  const [error, setError] = useState('');
 
   const handleCaptionChange = (e) => {
     setCaption(e.target.value);
@@ -25,17 +28,26 @@ const AddPostForm = () => {
     formData.append('expression', expression);
     formData.append('photo', photo);
     try {
-      const res = await axios.post('/paf/addpost', formData);
+      const res = await axios.post('http://localhost:8080/paf/addpost', formData);
       console.log(res.data);
     } catch (err) {
+      if (err.response) {
+        setError(err.response.data.message);
+      } else if (err.request) {
+        setError('Network Error');
+      } else {
+        setError(err.message);
+      }
       console.error(err);
     }
   };
 
   return (
+    <div className="form-container">
     <div>
       <h2>Create a new post</h2>
       <form onSubmit={handleSubmit}>
+        {error && <div className="error">{error}</div>}
         <div>
           <label htmlFor="caption">Caption:</label>
           <input type="text" id="caption" name="caption" value={caption} onChange={handleCaptionChange} />
@@ -50,6 +62,7 @@ const AddPostForm = () => {
         </div>
         <button type="submit">Create Post</button>
       </form>
+    </div>
     </div>
   );
 };

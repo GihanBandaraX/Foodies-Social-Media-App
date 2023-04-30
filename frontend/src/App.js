@@ -2,6 +2,7 @@
 import './App.css';
 import AddPostForm from './Component/PostCreation'; 
 import {BrowserRouter as Router, Route , Routes} from "react-router-dom" 
+import Allpost from './Component/Allpost';
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
       <Routes>
       
         <Route path = "/" element = {<AddPostForm/>} />
+        <Route path = "/all" element = {<Allpost/>} />
+
 
         </Routes>     
 </Router>
