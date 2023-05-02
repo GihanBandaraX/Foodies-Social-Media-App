@@ -3,6 +3,7 @@ import './App.css';
 import AddPostForm from './Component/PostCreation'; 
 import {BrowserRouter as Router, Route , Routes} from "react-router-dom" 
 import Allpost from './Component/Allpost';
+import Editpost from './Component/Editpost';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       
         <Route path = "/" element = {<AddPostForm/>} />
         <Route path = "/all" element = {<Allpost/>} />
+        <Route path = "/edit/:id" element = {<Editpost/>} />
 
 
         </Routes>     

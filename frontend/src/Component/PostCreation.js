@@ -18,7 +18,7 @@ const AddPostForm = () => {
   };
 
   const handlePhotoChange = (e) => {
-    setPhoto(e.target.files[0]);
+    setPhoto(e.target.files);
   };
 
   const handleSubmit = async (e) => {
@@ -26,7 +26,9 @@ const AddPostForm = () => {
     const formData = new FormData();
     formData.append('caption', caption);
     formData.append('expression', expression);
-    formData.append('photo', photo);
+    for (let i = 0; i < photo.length; i++) {
+        formData.append('photo', photo[i]);
+    }
     try {
       const res = await axios.post('http://localhost:8080/paf/addpost', formData);
       console.log(res.data);
@@ -58,7 +60,7 @@ const AddPostForm = () => {
         </div>
         <div>
           <label htmlFor="photo">Photo:</label>
-          <input type="file" id="photo" name="photo" onChange={handlePhotoChange} />
+          <input type="file" id="photo" accept='image/*' name="photo" multiple onChange={handlePhotoChange} />
         </div>
         <button type="submit">Create Post</button>
       </form>

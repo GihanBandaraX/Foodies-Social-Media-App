@@ -1,6 +1,10 @@
 package com.project.foodies.PostManagement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,9 +23,10 @@ public class Post {
 
     private String expression;
 
+    @ElementCollection
     @Lob
-    @Column(name="photo", nullable=false, columnDefinition="mediumblob")
-    private byte[] photo;
+    @Column(name = "photo", nullable = false, columnDefinition = "mediumblob")
+    private List<byte[]> photos = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -47,13 +52,14 @@ public class Post {
         this.expression = expression;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public List<byte[]> getPhotos() {
+        return photos;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void setPhotos(List<byte[]> photos) {
+        this.photos = photos;
     }
+
    
     
 }

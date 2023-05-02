@@ -1,6 +1,8 @@
 package com.project.foodies.PostManagement;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,21 @@ public class PostController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/addpost")  
-    public @ResponseBody String addNewPost(@RequestParam String caption, @RequestParam String expression, @RequestParam("photo") MultipartFile photo) throws IOException {
+    public @ResponseBody String addNewPost(@RequestParam String caption, @RequestParam String expression, @RequestParam("photo") MultipartFile[] photos) throws IOException {
        
        
+        List<byte[]> photoList = new ArrayList<>();
+
+        for (MultipartFile photo : photos) {
+            photoList.add(photo.getBytes());
+        } 
+
+
        
         Post n = new Post();
         n.setCaption(caption);
         n.setExpression(expression);
-        n.setPhoto(photo.getBytes());
+        n.setPhotos(photoList);
         postRepository.save(n);
         return "Post Saved";
     }
@@ -52,7 +61,7 @@ public class PostController {
             Post post = optionalPost.get();
             post.setCaption(caption);
             post.setExpression(expression);
-            post.setPhoto(photo.getBytes());
+            post.getPhotos().add(photo.getBytes());
             postRepository.save(post);
             return "Updated";
         } else {
