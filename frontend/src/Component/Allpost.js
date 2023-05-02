@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 const Allpost = () => {
   const [posts, setPosts] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const userid=1; 
 
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const res = await axios.get('http://localhost:8080/paf/allpost');
+        const res = await axios.get(`http://localhost:8080/paf/user/${userid}`);
         setPosts(res.data);
       } catch (err) {
         console.error(err);
@@ -54,7 +55,7 @@ const Allpost = () => {
             <h3>{post.caption}</h3>
             <p>{post.expression}</p>
             <div className="buttons-container">
-              <Link to={`/edit/${post._id}`}>Edit</Link>
+              <Link to={`/edit/${post.id}`}>Edit</Link>
               <button onClick={() => handleDelete(post._id)}>Delete</button>
             </div>
           </div>

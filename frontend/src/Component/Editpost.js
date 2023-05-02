@@ -74,9 +74,7 @@ const EditPost = () => {
         </div>
         <button type="submit">Update Post</button>
       </form>
-      {photos.map((photo, index) => (
-        <img key={index} src={`data:image/jpeg;base64,${photo}`} alt={`Photo ${index + 1}`} />
-      ))}
+    
     </div>
   );
 };

@@ -19,6 +19,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "userId")
+    private Integer userId; 
+
     private String caption;
 
     private String expression;
@@ -58,6 +61,14 @@ public class Post {
 
     public void setPhotos(List<byte[]> photos) {
         this.photos = photos;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
    

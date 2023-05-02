@@ -26,8 +26,8 @@ public class PostController {
     private PostRepository postRepository;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(path = "/addpost")  
-    public @ResponseBody String addNewPost(@RequestParam String caption, @RequestParam String expression, @RequestParam("photo") MultipartFile[] photos) throws IOException {
+    @PostMapping(path = "/addpost/{userId}")  
+    public @ResponseBody String addNewPost(@PathVariable Integer userId,@RequestParam String caption, @RequestParam String expression, @RequestParam("photo") MultipartFile[] photos) throws IOException {
        
        
         List<byte[]> photoList = new ArrayList<>();
@@ -39,6 +39,7 @@ public class PostController {
 
        
         Post n = new Post();
+        n.setUserId(userId);
         n.setCaption(caption);
         n.setExpression(expression);
         n.setPhotos(photoList);
@@ -52,6 +53,14 @@ public class PostController {
         
         return postRepository.findAll();
     }
+
+  
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/user/{userId}")
+    public @ResponseBody Iterable<Post> getPostsByUserId(@PathVariable Integer userId) {
+        return postRepository.findByUserId(userId);
+    }
+
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping(path = "/updatepost/{id}")

@@ -8,6 +8,7 @@ const AddPostForm = () => {
   const [expression, setExpression] = useState('');
   const [photo, setPhoto] = useState(null);
   const [error, setError] = useState('');
+  const userid=2; 
 
   const handleCaptionChange = (e) => {
     setCaption(e.target.value);
@@ -30,7 +31,7 @@ const AddPostForm = () => {
         formData.append('photo', photo[i]);
     }
     try {
-      const res = await axios.post('http://localhost:8080/paf/addpost', formData);
+      const res = await axios.post('http://localhost:8080/paf/addpost/2', formData);
       console.log(res.data);
     } catch (err) {
       if (err.response) {
