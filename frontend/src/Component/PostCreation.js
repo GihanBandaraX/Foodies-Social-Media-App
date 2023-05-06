@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './PostStyle/PostCreation.css';
+import { useNavigate } from "react-router-dom";
+
 
 
 const AddPostForm = () => {
+
+
+  const navigate = useNavigate();
+
   const [caption, setCaption] = useState('');
   const [expression, setExpression] = useState('');
   const [photo, setPhoto] = useState(null);
@@ -33,6 +39,9 @@ const AddPostForm = () => {
     try {
       const res = await axios.post('http://localhost:8080/paf/addpost/2', formData);
       console.log(res.data);
+
+      navigate("/all");
+
     } catch (err) {
       if (err.response) {
         setError(err.response.data.message);

@@ -1,34 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import './PostStyle/All.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
 
-const PostList = () => {
+function PostList() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await axios.get('http://localhost:8080/paf/allpost');
-        setPosts(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchPosts();
+    fetch('http://localhost:8080/paf/allpost')
+      .then(response => response.json())
+      .then(data => setPosts(data))
+      .catch(error => console.error(error));
   }, []);
 
+  const handleCommentClick = (postId) => {
+    // Implement logic to handle comment click
+    console.log(`Comment clicked for post ${postId}`);
+  };
+
   return (
-    <div>
-      <h2>All Posts</h2>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <h3>{post.caption}</h3>
-          <p>{post.expression}</p>
-          <img src={`data:image/jpeg;base64,${post.photo}`} alt={post.caption} />
-        </div>
-      ))}
+    <div className="post-list-wrapper">
+      <h1>Post List</h1>
+      <ul className="post-list">
+        {posts.map(post => (
+          <li key={post.id} className="post-container post-size">
+            <h2>{post.caption}</h2>
+            <p>{post.expression}</p>
+            <div className="photo-container">
+              {post.photos.map((photo, index) => (
+                <img key={index} className="photo post-size" src={`data:image/jpeg;base64,${photo}`} alt="" />
+              ))}
+            </div>
+            <div className="comment-container">
+              <FontAwesomeIcon icon={faComment} onClick={() => handleCommentClick(post.id)} />
+              <span className="comment-label">Add Comment</span>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
 export default PostList;
-
