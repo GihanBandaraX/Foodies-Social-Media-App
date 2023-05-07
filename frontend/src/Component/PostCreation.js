@@ -55,10 +55,12 @@ const AddPostForm = () => {
   };
 
   return (
+  
     <div className="form-container">
     <div>
-      <h2>Create a new post</h2>
+     
       <form onSubmit={handleSubmit}>
+      <h2>Create a New Post</h2>
         {error && <div className="error">{error}</div>}
         <div>
           <label htmlFor="caption">Caption:</label>
@@ -72,10 +74,11 @@ const AddPostForm = () => {
           <label htmlFor="photo">Photo:</label>
           <input type="file" id="photo" accept='image/*' name="photo" multiple onChange={handlePhotoChange} />
         </div>
-        <button type="submit">Create Post</button>
+        <button type="submit">Post</button>
       </form>
     </div>
     </div>
+  
   );
 };
 
