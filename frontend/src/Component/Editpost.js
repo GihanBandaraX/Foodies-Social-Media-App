@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 
 
 function EditPost() {
+
+  
 
   const { id } = useParams();
   const [caption, setCaption] = useState('');
   const [expression, setExpression] = useState('');
   const [photo, setPhoto] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPost();
@@ -24,8 +30,9 @@ function EditPost() {
       console.error(error);
     }
   };
-
+  
   const handleFormSubmit = async (event) => {
+    
     event.preventDefault();
     const formData = new FormData();
     formData.append('caption', caption);
@@ -37,8 +44,11 @@ function EditPost() {
       await axios.put(`http://localhost:8080/paf/updatepost/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
+          
         }
+       
       });
+      navigate("/all");
       // Handle success message or redirect to another page
 
     } catch (error) {
